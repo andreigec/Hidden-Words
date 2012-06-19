@@ -1,0 +1,8 @@
+Version 1.2
+Updated to use GITHub
+
+Version 1.1
+*Using a better algorithm to match words
+
+version 1
+initial release
