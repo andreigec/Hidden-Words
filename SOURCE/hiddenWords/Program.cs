@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace hiddenWords
+namespace HiddenWords
 {
     internal static class Program
     {

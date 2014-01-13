@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hiddenWords", "hiddenWords\hiddenWords.csproj", "{56DB697F-CC11-4722-8ED4-FE6420225D20}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiddenWords", "hiddenWords\HiddenWords.csproj", "{56DB697F-CC11-4722-8ED4-FE6420225D20}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ANDREICSLIB", "..\..\ANDREICSLIB\SOURCE\ANDREICSLIB\ANDREICSLIB.csproj", "{469B8120-B6D8-48BD-97C4-AFAB63AEE304}"
 EndProject

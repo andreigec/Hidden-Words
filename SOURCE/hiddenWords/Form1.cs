@@ -3,22 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using ANDREICSLIB;
+using HiddenWords.ServiceReference1;
 using templates;
+using ListViewSorter = ANDREICSLIB.ListViewSorter;
 
-namespace hiddenWords
+namespace HiddenWords
 {
     public partial class Form1 : Form
     {
         #region licensing
 
         private const string AppTitle = "Hidden Words";
-        private const double AppVersion = 1.2;
+        private const double AppVersion = 1.3;
         private const String HelpString = "";
-
-        private const String UpdatePath = "https://github.com/EvilSeven/Hidden-Words/zipball/master";
-        private const String VersionPath = "https://raw.github.com/EvilSeven/Hidden-Words/master/INFO/version.txt";
-        private const String ChangelogPath = "https://raw.github.com/EvilSeven/Hidden-Words/master/INFO/changelog.txt";
-
         private readonly String OtherText =
             @"©" + DateTime.Now.Year +
             @" Andrei Gec (http://www.andreigec.net)
@@ -37,14 +34,40 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
         public Form1()
         {
             InitializeComponent();
-            Licensing.CreateLicense(this, HelpString, AppTitle, AppVersion, OtherText, VersionPath, UpdatePath,
-                                    ChangelogPath, menuStrip1);
+        }
+
+        public Licensing.DownloadedSolutionDetails GetDetails()
+        {
+            try
+            {
+                var sr = new ServicesClient();
+                var ti = sr.GetTitleInfo(AppTitle);
+                if (ti == null)
+                    return null;
+                return ToDownloadedSolutionDetails(ti);
+
+            }
+            catch (Exception)
+            {
+            }
+            return null;
+        }
+
+        public static Licensing.DownloadedSolutionDetails ToDownloadedSolutionDetails(TitleInfoServiceModel tism)
+        {
+            return new Licensing.DownloadedSolutionDetails()
+            {
+                ZipFileLocation = tism.LatestTitleDownloadPath,
+                ChangeLog = tism.LatestTitleChangelog,
+                Version = tism.LatestTitleVersion
+            };
         }
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
             wordaddlimit.Text = "Only Add " + maxAdd.ToString() + " Of The Longest Words Found";
+            Licensing.CreateLicense(this, menuStrip1, new Licensing.SolutionDetails(GetDetails, HelpString, AppTitle, AppVersion, OtherText));
 
             string p = Path.GetDirectoryName(Application.ExecutablePath);
             Directory.SetCurrentDirectory(p);
@@ -125,7 +148,7 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
 
         private void possiblechars_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled=TextboxUpdates.HandleInput(TextboxUpdates.InputType.Create(true, false, false, false), e.KeyChar,
+            e.Handled = TextboxExtras.HandleInput(TextboxExtras.InputType.Create(true, false, false, false), e.KeyChar,
                                                 possiblechars);
         }
         }

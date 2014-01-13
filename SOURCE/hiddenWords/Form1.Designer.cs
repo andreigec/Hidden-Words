@@ -1,4 +1,4 @@
-﻿namespace hiddenWords
+﻿namespace HiddenWords
 {
 	partial class Form1
 	{
