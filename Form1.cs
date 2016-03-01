@@ -53,6 +53,7 @@ Zip Assets © SharpZipLib (http://www.sharpdevelop.net/OpenSource/SharpZipLib/)
         {
             return FormConfigRestore.LoadConfig(this, configPath);
         }
+        
         #endregion settings
 
         public const int maxAdd = 100;
